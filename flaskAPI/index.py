@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -15,7 +16,8 @@ def get_users():
 
 @app.route('/users/<username>')
 def get_user_info(username):
-    return f"username: {username}"
+    return jsonify({"username": username}), 200
+    # return f"username: {username}"
 
 
 @app.route('/post/<int:post_id>')
