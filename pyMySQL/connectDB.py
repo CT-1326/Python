@@ -14,4 +14,6 @@ with connection:
     with connection.cursor() as cursor:
         sql = 'SELECT * FROM users'
         cursor.execute(sql)
-        print(cursor.fetchall())
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
