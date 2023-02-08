@@ -18,18 +18,18 @@ def get_users():
     return 'users'
 
 
-@app.route('/users/<username>')
+@app.route('/users/<username>') # 괄호 부분이 파라미터 입력 구간
 def get_user_info(username):
-    return jsonify({"username": username}), 200
+    return jsonify({"username": username}), 200 # 응답 결과와 상태 코드 전송 가능
     # return f"username: {username}"
 
 
-@app.route('/post/<int:post_id>')
+@app.route('/post/<int:post_id>') # 데이터 타입 지정도 가능
 def show_post(post_id):
     return 'Post %d' % post_id
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST']) # HTTP 메소드 지정도 가능
 def login():
     ADMIN_NAME = 'root'
     ADMIN_PASSWORD = '12345'
