@@ -1,7 +1,8 @@
 import socket
 from threading import Thread
 
-HOST = socket.gethostbyname(socket.gethostname())  # 서버 주소
+# 서버 주소와 포트번호
+HOST = socket.gethostbyname(socket.gethostname()) 
 PORT = 3000
 
 
