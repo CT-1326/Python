@@ -7,7 +7,7 @@ from flask import Response
 
 app = Flask(__name__)  # flask 앱 인스턴스화
 
-
+# @ 데코레이터를 통한 라우팅 처리
 @app.route('/')
 def hello_world():
     return 'Hello World!'

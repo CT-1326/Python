@@ -20,7 +20,7 @@ TODOS = {
 
 def abort_if_todo_doesnt_exist(todo_id):
     if todo_id not in TODOS:
-        abort(404, message="Todo {} doesnt't exist".format(todo_id))
+        abort(404, message="Todo {} doesnt't exist".format(todo_id)) # 404 에러 처리
 
 
 parser = reqparse.RequestParser()  # 요청 인수 파싱
@@ -55,7 +55,7 @@ class TodoList(Resource):
         TODOS[todo_id] = {'task': args['task']}
         return 'Insert Success!', 201
 
-
+# 라우팅 처리
 api.add_resource(HelloWorld, '/')
 api.add_resource(TodoList, '/todos')
 api.add_resource(Todo, '/todos/<todo_id>')
