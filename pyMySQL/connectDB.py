@@ -7,13 +7,33 @@ connection = pymysql.connect(
     host=os.environ.get('HOST'),
     user=os.environ.get('USER'),
     password=os.environ.get('PASSWORD'),
-    db=os.environ.get('DB')
+    db=os.environ.get('DB'),
+    cursorclass=pymysql.cursors.DictCursor,
 )
+cursor = connection.cursor()
+print('DB init success!')
+sql = 'SELECT * FROM users WHERE id = %s'
 
-with connection:
-    with connection.cursor() as cursor:
-        sql = 'SELECT * FROM users'
-        cursor.execute(sql)
-        rows = cursor.fetchall()
-        for row in rows:
-            print(row)
+
+def get():
+    # print(name, type(name))
+    cursor.execute('SELECT * FROM users')
+    return cursor.fetchall()
+
+
+def getUser(name):
+    # print(name, type(name))
+    cursor.execute(sql, (name))
+    return cursor.fetchone()
+
+
+def postUser(id, password, email):
+    cursor.execute(sql, (id))
+
+    if cursor.rowcount == 0:
+        cursor.execute("INSERT INTO users VALUES(default, %s, %s, %s)",
+                       (id, password, email))
+        connection.commit()
+        return 'Done'
+    else:
+        return 'Already have user!'
