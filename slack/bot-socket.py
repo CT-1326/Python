@@ -324,7 +324,7 @@ def add_user(ack, body, say):
     say(f'{result}')
 
 
-@app.message("test")
+@app.message("change")
 def change_status_message(message, say):
     user_id = message['user']
     print(user_id)
