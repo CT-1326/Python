@@ -20,8 +20,7 @@ def message_world(message, say):
 
 
 @app.message("help")
-def message_world(message, say):
-    # print(message)
+def message_world(say):
     blocks = [
         {
             "type": "section",
@@ -98,8 +97,6 @@ def get_message(say):
         }
     ]
     say(blocks=blocks)
-
-
 @app.action("get_user")
 def get_user(ack, body, say):
     ack()
@@ -128,8 +125,6 @@ def get_message(say):
         }
     ]
     say(blocks=blocks)
-
-
 @app.action("del_user")
 def del_user(ack, body, say):
     ack()
@@ -207,8 +202,6 @@ def get_message(say):
         }
     ]
     say(blocks=blocks)
-
-
 @app.action("add_user")
 def add_user(ack, body, say):
     ack()
@@ -304,8 +297,6 @@ def get_message(say):
         }
     ]
     say(blocks=blocks)
-
-
 @app.action("modify_user")
 def add_user(ack, body, say):
     ack()
@@ -325,9 +316,10 @@ def add_user(ack, body, say):
 
 
 @app.message("change")
-def change_status_message(message, say):
+def change_status_message(ack, message, say):
+    ack()
     user_id = message['user']
-    print(user_id)
+    # print(user_id)
     user_client = WebClient(token=os.environ["USERTOKEN"])
     user_client.users_profile_set(
         user=user_id,
