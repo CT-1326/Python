@@ -1,6 +1,3 @@
-import json
-from slack_sdk.errors import SlackApiError
-from pyMySQL import connectDB
 import sys
 import os
 from slack_bolt.adapter.socket_mode import SocketModeHandler
@@ -8,6 +5,8 @@ from slack_bolt import App
 from dotenv import load_dotenv
 load_dotenv()
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from pyMySQL import connectDB
+from slack_sdk import WebClient
 
 app = App(
     token=os.environ.get('TOKEN')
@@ -323,6 +322,21 @@ def add_user(ack, body, say):
     result = connectDB.putUser(id, new_id, pw, email)
     # print(result, type(result))
     say(f'{result}')
+
+
+@app.message("test")
+def change_status_message(message, say):
+    user_id = message['user']
+    print(user_id)
+    user_client = WebClient(token=os.environ["USERTOKEN"])
+    user_client.users_profile_set(
+        user=user_id,
+        profile={
+            "status_text": "나는 한다 상태 메시지 변경 테스트를",
+            "status_emoji": "🤖",
+        }
+    )
+    say("상태 메시지 변경 완료!")
 
 
 if __name__ == "__main__":
